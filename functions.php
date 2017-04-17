@@ -155,9 +155,12 @@ function getMoneda(){
 ///////
 function printAnalyticsCode($url){
 
+		printHqForm();
+
 		printFbPixel();
 
-		echo "<!-- Analytics -->
+		echo "
+			<!-- Analytics -->
 				<script>
 				  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 				  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -172,7 +175,8 @@ function printAnalyticsCode($url){
 				  ga('linker:autoLink', ['reservationarea.com']);
 				  ga('send', 'pageview', {
 				  'hitCallback': function() {
-				      window.top.location = \"".$url."\";
+				      //window.top.location = \"".$url."\";
+				  	 document.getElementById(\"bookingForm\").submit();
 				  }
 				  });
 				</script>
@@ -209,5 +213,24 @@ src=\"https://www.facebook.com/tr?id=198003900680528&ev=PageView&noscript=1\"
 		});
 		</script>
 ";
+}
+
+   ////////////
+  // Imprime el formualrio que es enviado automaticamente 
+ //  por el metodo POST al server de HQBeds
+///////
+function printHqForm(){
+	global $mes, $dia, $anio, $mesP, $diaP, $anioP, $lang;
+
+	echo '<form action="https://admin.hqbeds.com.br/pt-br/hqb/GKXgN4zZYx/availability" id="bookingForm" method="post" name="bookingForm" accept-charset="utf-8">
+			
+			<input name="arrival" id="arrival" value="'.$dia.'/'.$mes.'/'.$anio.'" type="text" style="display:none">
+                            
+            <input name="departure" id="departure" value="'.$diaP.'/'.$mesP.'/'.$anioP.'" type="text"style="display:none">
+
+
+        </form>';
+
+
 }
 ?>

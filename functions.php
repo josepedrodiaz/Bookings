@@ -48,7 +48,7 @@ function procesarHQ(){
 	$url .= $out;
 
 	//header("Location: $url");
-	printAnalyticsCode($url);
+	printAnalyticsCodeHQ($url);
 }
 
 
@@ -148,12 +148,41 @@ function getMoneda(){
 	return $moneda;
 }
 
-
-
 ////////
-// Imprime el código de Analytics
+// Imprime el código de Analytics y redirije a HW
 ///////
 function printAnalyticsCode($url){
+
+		printFbPixel();
+
+		echo "
+			<!-- Analytics -->
+				<script>
+				  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+				  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+				  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+				  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+				  ga('create', 'UA-22408272-1', 'auto', {'allowLinker': true});
+				  //Multidomain
+				  // Load the plugin.
+				  ga('require', 'linker');
+				  // Define which domain/s to autoLink.
+				  ga('linker:autoLink', ['reservationarea.com']);
+				  ga('send', 'pageview', {
+				  'hitCallback': function() {
+				      window.top.location = \"".$url."\";				  	 
+				  }
+				  });
+				</script>
+				";
+
+}
+
+////////
+// Imprime el formulario de HQ y el código de Analytics
+///////
+function printAnalyticsCodeHQ($url){
 
 		printHqForm();
 

@@ -24,7 +24,7 @@ $hostel = $_POST["destino"];
 if($hostel == "suites"){
 	procesarHQ();
 }else if($hostel == "ezee"){
-	procesarEzee();
+	procesarEzee($lang);
 }else{
 	procesarHW();	
 }

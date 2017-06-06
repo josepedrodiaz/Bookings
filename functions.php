@@ -52,11 +52,21 @@ function procesarHQ(){
 }
 
 //Ezee
-function procesarEzee(){
+function procesarEzee($lang){
 
 	global $mes, $dia, $anio, $mesP, $diaP, $anioP, $lang;
 
-	echo '<form id="formEzee" name="_resBBBox" action="https://live.ipms247.com/booking/book-rooms-hotelezee" method="post" style="visibility:hidden">
+	switch ($lang) {
+		case 'value':
+			$action = 'https://live.ipms247.com/booking/book-rooms-hotelezee'; // ENG URL
+			break;	
+		default:
+			$action = 'https://live.ipms247.com/booking/book-rooms-hotelezee-es-Spanish'; // PT URL
+			break;
+	}
+	
+
+	echo '<form id="formEzee" name="_resBBBox" action="'.$action.'" method="post" style="visibility:hidden">
 			<input name="eZ_chkin" id="eZ_chkin" value="'.$dia.'-'.$mes.'-'.$anio.'" type="text">
 			<input name="eZ_chkout" id="eZ_chkout"  value="'.$diaP.'-'.$mesP.'-'.$anioP.'" type="text">
 			<input name="eZ_Nights" id="eZ_Nights" value="2" type="hidden"> 
@@ -69,6 +79,7 @@ function procesarEzee(){
 			<input name="calformat" id="calformat" value="dd-mm-yy" type="hidden">
 			<input name="ArDt" id="ArDt" value="26-04-2018" type="hidden">
 			<input name="acturl" id="acturl" value="https://live.ipms247.com/booking/book-rooms-hotelezee" type="hidden">
+			<input name="CHCurrency" value="MXN" type="hidden">
 			</form>';
 
 	

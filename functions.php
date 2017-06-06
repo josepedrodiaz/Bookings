@@ -33,22 +33,27 @@ function procesarHW(){
 
 
 //HQ
-function procesarHQ(){
+function procesarHQ($hostel){
 
 	global $mes, $dia, $anio, $mesP, $diaP, $anioP, $lang;
+
+	$hostelId = getHostelHQId($hostel);
+
+
 
 	$in = $anio."-".$mes."-".$dia;
 	$out = $anioP."-".$mesP."-".$diaP;
 
 	$url = "https://admin.hqbeds.com.br/";
 	$url .= $lang;
-	$url .= "/hqb/GKXgN4zZYx/availability?arrival=";
+	$url .= "/hqb/".$hostelId."/availability?arrival=";
 	$url .= $in;
 	$url .= "&departure=";
 	$url .= $out;
 
+
 	//header("Location: $url");
-	printAnalyticsCodeHQ();
+	printAnalyticsCodeHQ($hostelId);
 }
 
 //Ezee
@@ -239,9 +244,9 @@ function printAnalyticsCode($url){
 ////////
 // Imprime el formulario de HQ y el código de Analytics
 ///////
-function printAnalyticsCodeHQ(){
+function printAnalyticsCodeHQ($hostelId){
 
-		printHqForm();
+		printHqForm($hostelId);
 
 		printFbPixel();
 
@@ -304,10 +309,10 @@ src=\"https://www.facebook.com/tr?id=198003900680528&ev=PageView&noscript=1\"
   // Imprime el formualrio que es enviado automaticamente 
  //  por el metodo POST al server de HQBeds
 ///////
-function printHqForm(){
+function printHqForm($hostelId){
 	global $mes, $dia, $anio, $mesP, $diaP, $anioP, $lang;
 
-	echo '<form action="https://admin.hqbeds.com.br/pt-br/hqb/GKXgN4zZYx/availability" id="bookingForm" method="post" name="bookingForm" accept-charset="utf-8">
+	echo '<form action="https://admin.hqbeds.com.br/pt-br/hqb/'.$hostelId.'/availability" id="bookingForm" method="post" name="bookingForm" accept-charset="utf-8">
 			
 			<input name="arrival" id="arrival" value="'.$dia.'/'.$mes.'/'.$anio.'" type="text" style="display:none">
                             
@@ -317,5 +322,29 @@ function printHqForm(){
         </form>';
 
 
+}
+
+
+
+   ////////////
+  // Devuelve el Id correspondiente a cada hostel
+ //  dentro del sistema de HQBeds, sirve para conformar la URL de destino
+///////
+function getHostelHQId($hostel){
+
+	switch ($hostel) {
+		case 'suites':
+			$hostelHQId = "GKXgN4zZYx";
+			break;
+		case 'ilha':
+			$hostelHQId = "QqryJeYZ57";
+			break;
+		default:
+			$hostelHQId = "# ERROR # Hostel no encontrado";
+			break;
+	}
+
+
+	return $hostelHQId;
 }
 ?>

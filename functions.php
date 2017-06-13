@@ -312,7 +312,13 @@ src=\"https://www.facebook.com/tr?id=198003900680528&ev=PageView&noscript=1\"
 function printHqForm($hostelId){
 	global $mes, $dia, $anio, $mesP, $diaP, $anioP, $lang;
 
-	echo '<form action="https://admin.hqbeds.com.br/pt-br/hqb/'.$hostelId.'/availability" id="bookingForm" method="post" name="bookingForm" accept-charset="utf-8">
+	if($hostelId == "drjl9zZq6b"){
+		$baseDomain = "booking.cafehostel.com.br";
+	}else{
+		$baseDomain = "admin.hqbeds.com.br";
+	}
+
+	echo '<form action="https://' . $baseDomain . '/pt-br/hqb/'.$hostelId.'/availability" id="bookingForm" method="post" name="bookingForm" accept-charset="utf-8">
 			
 			<input name="arrival" id="arrival" value="'.$dia.'/'.$mes.'/'.$anio.'" type="text" style="display:none">
                             
@@ -338,6 +344,9 @@ function getHostelHQId($hostel){
 			break;
 		case 'ilha':
 			$hostelHQId = "QqryJeYZ57";
+			break;
+		case 'cafe':
+			$hostelHQId = "drjl9zZq6b";
 			break;
 		default:
 			$hostelHQId = "# ERROR # Hostel no encontrado";

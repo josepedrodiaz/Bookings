@@ -28,7 +28,4 @@ if($hostel == "suites" || $hostel == "ilha" || $hostel == "cafe"){
 }else{
 	procesarHW();	
 }
-
-
-
 ?>
